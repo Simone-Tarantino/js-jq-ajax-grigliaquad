@@ -5,14 +5,22 @@
 
 $(document).ready (function() {
   $('.square').click(function(){
+    var thisSquare = $(this);
+    var number;
     $.ajax({
       url: "https://flynn.boolean.careers/exercises/api/random/int",
       method: "GET",
       success: function (data, stato) {
 
-        var squareContent = $(this).html().length;
+        var squareContent = thisSquare.html().length;
         if (squareContent == 0) {
-          $(this).append(data.response);
+          if (data.response <= 5) {
+            thisSquare.addClass('background-y');
+            thisSquare.append(data.response);
+          } else if (data.response > 5) {
+            thisSquare.addClass('background-g');
+            thisSquare.append(data.response);
+          }
         }
       },
       error: function (richiesta, stato, errori) {
